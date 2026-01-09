@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Systeminstallation</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: black;
+      color: lime;
+      text-align: center;
+      padding-top: 80px;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .bar {
+      width: 400px;
+      border: 2px solid lime;
+      margin: 20px auto;
+    }
+    .fill {
+      width: 0%;
+      height: 25px;
+      background: lime;
+      animation: load 12s forwards;
+    }
+    @keyframes load {
+      to { width: 100%; }
+    }
+    .status {
+      margin-top: 20px;
+      font-size: 18px;
+      min-height: 24px;
+    }
+    .countdown {
+      margin-top: 15px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚠ System wird infiziert…</h1>
+
+  <div class="bar">
+    <div class="fill"></div>
+  </div>
+
+  <div class="status" id="status">Initialisiere Installation…</div>
+  <div class="countdown" id="countdown">Zeit verbleibend: 10</div>
+
+  <script>
+    const steps = [
+      "Verbinde mit Server…",
+      "Zugriff auf Dateien wird vorbereitet…",
+      "Analysiere Systemdaten…",
+      "Installiere Module…",
+      "Umgehe Sicherheitsmaßnahmen…",
+      "Finalisiere Installation…"
+    ];
+
+    let stepIndex = 0;
+    let timeLeft = 10;
+
+    const statusEl = document.getElementById("status");
+    const countdownEl = document.getElementById("countdown");
+
+    const stepInterval = setInterval(() => {
+      statusEl.textContent = steps[stepIndex];
+      stepIndex++;
+      if (stepIndex >= steps.length) {
+        clearInterval(stepInterval);
+      }
+    }, 2000);
+
+    const countdownInterval = setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = "Zeit verbleibend: " + timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        countdownEl.textContent = "Installation abgeschlossen.";
+        statusEl.textContent = "System erfolgreich übernommen.";
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
